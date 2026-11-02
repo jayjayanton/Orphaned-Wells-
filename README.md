@@ -41,6 +41,24 @@ The CSV is transcribed from the **“Early basin performance”** table on slide
 
 These examples show why I treated the basins separately: discrimination metrics and threshold-dependent performance could differ substantially across regions.
 
+## March basin classification reports (_HC)
+
+I have added the 11 original basin classification reports from my March output folder to [validation/classification_reports/](validation/classification_reports/). These are the files ending in `_classification report_HC.csv`; I have not imported the similarly named reports without `_HC`, the separate `_metrics_HC.csv` files, or the threshold and SHAP plot folders.
+
+Each report contains class 0 and class 1 precision, recall, F1, support, overall accuracy, and macro/weighted averages. For the orphaned-well class (class 1), the March reports include:
+
+| Basin | Precision | Recall | F1 | Class 1 support |
+| --- | ---: | ---: | ---: | ---: |
+| Appalachian | 68.0% | 61.2% | 64.4% | 21,342 |
+| Denver | 97.0% | 93.5% | 95.2% | 4,446 |
+| Fort Worth | 69.2% | 28.1% | 40.0% | 32 |
+| Powder River | 97.7% | 95.9% | 96.8% | 15,776 |
+| Western Gulf | 92.7% | 81.3% | 86.6% | 546 |
+
+These are directly transcribed from the `_HC` classification reports, not recalculated from predictions. They show substantial regional variation. Fort Worth, for example, has only 32 positive-class records in its test set, so overall accuracy is not an informative standalone measure of orphaned-well detection there.
+
+The [early basin checkpoint CSV](validation/early_basin_holdout_metrics.csv) came from a separate presentation table with rounded values and should not be substituted for these original March reports. The `_HC` classification reports do not contain ROC-AUC, PR-AUC, or threshold values; those would require the separate metrics files.
+
 ## Model interpretation: national SHAP example
 
 ![National SHAP summary](images/validation/shap_summary_National.jpeg)
