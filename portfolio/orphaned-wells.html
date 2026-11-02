@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Geospatial data science and environmental research portfolio">
+    <title>
+      Orphaned Wells Prediction | Jay Oliver
+    </title>
+    <link rel="stylesheet" href="https://jayjayanton.github.io/Website-Portfolio/style.css">
+  </head>
+  <body>
+    <header class="header">
+      <div class="container nav">
+        <a class="logo" href="https://jayjayanton.github.io/Website-Portfolio/index.html">
+          JO
+          <span>
+            .
+          </span>
+        </a>
+        <nav class="links" aria-label="Main navigation">
+          <a href="https://jayjayanton.github.io/Website-Portfolio/index.html">
+            Home
+          </a>
+          <a href="https://jayjayanton.github.io/Website-Portfolio/projects.html">
+            Projects
+          </a>
+          <a href="https://jayjayanton.github.io/Website-Portfolio/research.html">
+            Research
+          </a>
+          <a href="https://jayjayanton.github.io/Website-Portfolio/about.html">
+            About
+          </a>
+          <a href="https://jayjayanton.github.io/Website-Portfolio/contact.html">
+            Contact
+          </a>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <article class="container section">
+        <p class="eyebrow">NETL · GEOSPATIAL MACHINE LEARNING · XGBOOST</p>
+        <h1>Identifying <em>Likely Orphaned Wells</em></h1>
+        <p class="lead">I developed basin-specific XGBoost models to identify wells that may be orphaned, using well records, geographic context, and model explainability.</p>
+        <div class="actions">
+          <a class="btn" href="https://github.com/jayjayanton/Orphaned-Wells-" target="_blank" rel="noopener noreferrer">View research repository</a>
+          <a class="btn secondary" href="https://github.com/jayjayanton/Orphaned-Wells-/blob/main/validation/early_basin_holdout_metrics.csv" target="_blank" rel="noopener noreferrer">Basin validation CSV</a>
+        </div>
+        <div class="case-accordion">
+          <details class="case-panel" open>
+            <summary><span class="case-panel__number">01</span><span>Project summary</span><span class="case-panel__hint">National and regional scope</span></summary>
+            <div class="case-panel__content">
+              <p>I worked with approximately 7–8 million U.S. well records, many of which had missing or inconsistent information. The objective was to identify likely orphaned-well candidates for researchers to review, not to determine legal status or estimate methane emissions.</p>
+              <p>I focused on XGBoost after considering simpler models, then built separate models for larger basins because geology, operating history, data coverage, and class balance varied geographically. I also explored an Enverus-enriched Appalachian model covering an approximately 900,000-well regional inventory.</p>
+            </div>
+          </details>
+          <details class="case-panel">
+            <summary><span class="case-panel__number">02</span><span>Methodology</span><span class="case-panel__hint">Feature engineering and validation</span></summary>
+            <div class="case-panel__content">
+              <p>I engineered predictors from well type, reported dates, state, depth, land cover, and location. I also calculated distance to the nearest known orphan using a haversine BallTree, with the known-orphan inventory restricted to the training split.</p>
+              <p>I used a stratified 70/30 training and holdout split, basin-specific 3- or 5-fold cross-validation, and BayesSearchCV to tune XGBoost parameters. Out-of-fold training predictions were used to choose a basin-specific probability threshold that maximized F1 before the final holdout evaluation.</p>
+              <p>The model produced precision, recall, F1, ROC-AUC, and PR-AUC metrics. I also generated SHAP summaries to examine how features influenced predictions. The original Python pipeline and its implementation limitations are documented in the <a href="https://github.com/jayjayanton/Orphaned-Wells-" target="_blank" rel="noopener noreferrer">research repository</a>.</p>
+            </div>
+          </details>
+          <details class="case-panel">
+            <summary><span class="case-panel__number">03</span><span>Figures</span><span class="case-panel__hint">Appalachian illustration and SHAP</span></summary>
+            <div class="case-panel__content">
+              <figure class="case-hero">
+                <img src="https://jayjayanton.github.io/Website-Portfolio/images/Appalachian%20Basin%20Well%20Classification%20Map.png" alt="Illustrative Appalachian Basin map showing synthetic orphaned-well probability categories" loading="lazy">
+                <figcaption>Illustrative Appalachian Basin classification map. Locations and probabilities are synthetic and are not actual model predictions.</figcaption>
+              </figure>
+              <figure class="case-hero">
+                <a href="https://jayjayanton.github.io/Website-Portfolio/images/shap_summary_National.jpeg" target="_blank" rel="noopener noreferrer"><img src="https://jayjayanton.github.io/Website-Portfolio/images/shap_summary_National.jpeg" alt="Preliminary national SHAP summary showing the distribution of feature contributions to orphaned-well predictions" loading="lazy"></a>
+                <figcaption>Preliminary national SHAP summary from an earlier model checkpoint. Color indicates feature values; horizontal position shows contributions to model output. This figure is separate from the basin-specific model script.</figcaption>
+              </figure>
+            </div>
+          </details>
+          <details class="case-panel">
+            <summary><span class="case-panel__number">04</span><span>Validation results</span><span class="case-panel__hint">Early basin checkpoint</span></summary>
+            <div class="case-panel__content">
+              <p>I converted the holdout table from my modeling presentation into a CSV containing 11 basin groups, selected thresholds, sample counts, precision, recall, F1, ROC-AUC and PR-AUC. These are early-checkpoint results and predate subsequent model tuning.</p>
+              <div class="case-facts">
+                <div><strong>69.6%</strong><span>Appalachian precision — early checkpoint</span></div>
+                <div><strong>59.5%</strong><span>Appalachian recall — early checkpoint</span></div>
+                <div><strong>72.2%</strong><span>Appalachian PR-AUC — early checkpoint</span></div>
+              </div>
+              <p>Performance varied substantially across basins. For example, the Fort Worth model had considerably lower recall than the Denver and Powder River models at this checkpoint. <a href="https://github.com/jayjayanton/Orphaned-Wells-/blob/main/validation/early_basin_holdout_metrics.csv" target="_blank" rel="noopener noreferrer">View the complete validation table.</a></p>
+            </div>
+          </details>
+          <details class="case-panel">
+            <summary><span class="case-panel__number">05</span><span>Limitations and next steps</span><span class="case-panel__hint">Data availability and interpretation</span></summary>
+            <div class="case-panel__content">
+              <p>The underlying research dataset is not publicly available, and I cannot reproduce the original numerical outputs without it. The repository preserves the historical model script and validation examples; it is not a ready-to-run replacement for the full NETL data environment.</p>
+              <p>These probabilities are intended to help prioritize candidate wells for inspection. They do not establish legal orphan status, confirm environmental contamination, or measure methane emissions.</p>
+            </div>
+          </details>
+        </div>
+        <a href="https://jayjayanton.github.io/Website-Portfolio/projects.html">← All projects</a>
+      </article>
+    </main>
+    <footer>
+      <div class="container">
+        ©
+        <span data-year>
+        </span>
+        Jay Oliver · HTML / CSS / JavaScript ·
+        <a href="https://github.com/jayjayanton">
+          GitHub
+        </a>
+      </div>
+    </footer>
+    <script src="https://jayjayanton.github.io/Website-Portfolio/script.js">
+    </script>
+  </body>
+</html>
