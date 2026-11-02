@@ -59,6 +59,14 @@ These are directly transcribed from the `_HC` classification reports, not recalc
 
 The [early basin checkpoint CSV](validation/early_basin_holdout_metrics.csv) came from a separate presentation table with rounded values and should not be substituted for these original March reports. The `_HC` classification reports do not contain ROC-AUC, PR-AUC, or threshold values; those would require the separate metrics files.
 
+## March threshold and SHAP plots
+
+I added the 11 original `_HC` out-of-fold training threshold plots from my March output folder to [images/threshold_plots](images/threshold_plots). Each plot shows how precision, recall, and F1 change across classification thresholds. The threshold was selected using training out-of-fold predictions, before the holdout evaluation.
+
+I also added the 11 basin-specific `_HC` SHAP summaries to [images/shap_plots](images/shap_plots). These figures complement the preliminary national SHAP example below, but represent separate basin models.
+
+In the March class-1 classification reports, the highest precision values were Permian (99.4%), Powder River (97.7%), and Denver (97.0%), followed by Western Gulf (92.7%) and TX–LA–MS Salt (90.4%). Precision must be interpreted with recall and positive-class support: for example, Fort Worth had only 32 positive test cases and 28.1% recall.
+
 ## Model interpretation: national SHAP example
 
 ![National SHAP summary](images/validation/shap_summary_National.jpeg)
@@ -102,10 +110,13 @@ Orphaned-Wells-/
 ├── scripts/
 │   └── Orphan_Wells_Prediction_Final.py
 ├── images/
-│   └── validation/
-│       └── shap_summary_National.jpeg
+│   ├── validation/
+│   │   └── shap_summary_National.jpeg
+│   ├── threshold_plots/ (11 _HC JPEGs)
+│   └── shap_plots/ (11 _HC JPEGs)
 ├── validation/
-│   └── early_basin_holdout_metrics.csv
+│   ├── early_basin_holdout_metrics.csv
+│   └── classification_reports/ (11 _HC CSVs)
 └── portfolio/
     └── orphaned-wells.html
 ```
