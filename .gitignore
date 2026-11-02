@@ -1,0 +1,6 @@
+Raw CSV Files/
+Output Plots/
+*.pkl
+__pycache__/
+.venv/
+.ipynb_checkpoints/
